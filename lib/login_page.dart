@@ -28,10 +28,34 @@ class LoginPage extends StatelessWidget {
               CustomFormLogin(
                 controller: nombreController,
                 label: 'Nombre de Usuario',
+                validator: (valor) {
+                  if ((valor!.isEmpty)) {
+                    return 'El nombre es obligatorio';
+                  }
+                  final usuario = valor.toUpperCase();
+                  if ((usuario != 'CTREJOM@UNAH.HN') &&
+                      (usuario != 'WAI.TSE@UNAH.HN')) {
+                    return 'El Usuario que ingreso es incorrecto';
+                  }
+                  return null;
+                },
               ),
               CustomFormLogin(
                 controller: contraseniaController,
                 label: 'Contraseña',
+                validator: (valor) {
+                  if ((valor!.isEmpty)) {
+                    return 'La Contraseña es obligatoria';
+                  }
+                  final usuario = nombreController.text.toUpperCase();
+                  if (usuario == 'CTREJOM@UNAH.HN' && valor != '20212000569') {
+                    return 'Contraseña incorrecta para el usuario';
+                  } else if (usuario == 'WAI.TSE@UNAH.HN' &&
+                      valor != '20212000972') {
+                    return 'Contraseña incorrecta para el usuario';
+                  }
+                  return null;
+                },
               ),
               Container(
                   child: Row(
@@ -40,7 +64,7 @@ class LoginPage extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         if (formkey.currentState!.validate()) {
-                          Navigator.pushNamed(context, 'inicio'); //Pongo Push para poder volver de forma temporal
+                          return null;
                         }
                       },
                       child: const Text('Iniciar sesión'),
@@ -58,7 +82,9 @@ class LoginPage extends StatelessWidget {
                             Colors.black87, // Color del botón en modo oscuro
                       ),
                     ),
-                  ]))
+                  ]
+                )
+              )
             ],
           ),
         ),
