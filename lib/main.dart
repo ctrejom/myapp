@@ -13,13 +13,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Tercera Tarea',
-      // home: const HomePage(),
-      initialRoute: 'login', // debe ser una ruta previamente definida
+      initialRoute: 'login',
       routes: {
         'login': (context) => LoginPage(),
         'Registrar': (context) => RegisterPage(),
         'Home': (context) => InicioPage(email: ''),
       },
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        textTheme: TextTheme(
+          bodyMedium: TextStyle(color: Colors.white),
+        ),
+      ),
     );
   }
 }

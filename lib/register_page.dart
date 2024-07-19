@@ -13,23 +13,33 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Registro'),
+      appBar: AppBar(
+        title: const Text('Registro'),
+        backgroundColor: Colors.deepPurple,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.deepPurple, Colors.purpleAccent],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
         ),
-        body: Center(
+        child: Center(
           child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Form(
-                key: formkey,
-                child: Column(children: [
+            padding: const EdgeInsets.all(16),
+            child: Form(
+              key: formkey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
                   CustomFormLogin(
                     label: 'Nombre',
                     controller: nombreController,
-                      validator: (value) {
+                    validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'El nombre es obligatorios';
+                        return 'El nombre es obligatorio';
                       }
-
                       if (value.length < 3 || value.length > 10) {
                         return 'El nombre debe contener entre 3 y 10 caracteres';
                       }
@@ -37,36 +47,34 @@ class RegisterPage extends StatelessWidget {
                     },
                   ),
                   CustomFormLogin(
-                    label: 'Correo Electronico',
+                    label: 'Correo Electrónico',
                     controller: correoController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'El Correo Electronico es obligatorio';
+                        return 'El Correo Electrónico es obligatorio';
                       }
-
                       if (!value.contains('@')) {
-                        return 'El Correo Electronico debe contener un @';
+                        return 'El Correo Electrónico debe contener un @';
                       }
                       if (value.indexOf('@') != value.lastIndexOf('@')) {
                         return 'No puede haber más de un @';
                       }
                       if (!value.endsWith('@unah.hn')) {
-                        return 'El Correo Electronico debe contener unah.hn';
+                        return 'El Correo Electrónico debe contener unah.hn';
                       }
                       if (value.contains(' ')) {
-                        return 'El Correo Electronico no puede contener espacios';
+                        return 'El Correo Electrónico no puede contener espacios';
                       }
-
                       return null;
                     },
                   ),
                   CustomFormLogin(
-                    label: 'Telefono',
+                    label: 'Teléfono',
                     controller: telefonoController,
                     keyboardType: TextInputType.number,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'El Telefono es obligatorio';
+                        return 'El Teléfono es obligatorio';
                       }
                       if (value.length != 8) {
                         return 'El Teléfono debe tener exactamente 8 números';
@@ -89,52 +97,65 @@ class RegisterPage extends StatelessWidget {
                   CustomFormLogin(
                     label: 'Contraseña',
                     controller: contraseniaController,
+                    obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'La contraseña es obligatoria';
+                        return 'La Contraseña es obligatoria';
                       }
                       if (value.length < 8) {
-                        return 'La contraseña debe tener al menos 8 caracteres';
+                        return 'La Contraseña debe tener al menos 8 caracteres';
                       }
-
-                      if (!value.contains(RegExp(r'[A-Z]'))) {
-                        return 'La contraseña debe contener al menos una letra mayúscula';
+                      if (value.contains(' ')) {
+                        return 'La Contraseña no puede contener espacios';
                       }
-                      if (!value.contains(RegExp(r'[a-z]'))) {
-                        return 'La contraseña debe contener al menos una letra minúscula';
+                      if (!RegExp(r'[A-Z]').hasMatch(value)) {
+                        return 'La Contraseña debe tener al menos una mayúscula';
                       }
-                      if (!value.contains(RegExp(r'[!@#$%^&*()_+-]'))) {
-                        return 'La contraseña debe contener al menos un carácter especial';
+                      if (!RegExp(r'[a-z]').hasMatch(value)) {
+                        return 'La Contraseña debe tener al menos una minúscula';
+                      }
+                      if (!RegExp(r'[0-9]').hasMatch(value)) {
+                        return 'La Contraseña debe tener al menos un número';
+                      }
+                      if (!RegExp(r'[!@#\$&*~]').hasMatch(value)) {
+                        return 'La Contraseña debe tener al menos un caracter especial';
                       }
                       return null;
                     },
                   ),
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            if (formkey.currentState!.validate()) {
-                              print('Nombre de usuario: ${nombreController.text}');
-                              print( 'Correo Electronico: ${correoController.text}');
-                              print('Telefono: ${telefonoController.text}');
-                              print('Contraseña: ${contraseniaController.text}');
-                            }
-                          },
-                          child: const Text('Registrarse'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black87,
-                          ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          if (formkey.currentState!.validate()) {
+                            // Acción a definir para registro exitoso
+                            Navigator.pushNamed(context, 'login');
+                          }
+                        },
+                        child: const Text('Registrar'),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.deepPurple, backgroundColor: Colors.white,
                         ),
-                      ]
-                    )
-                  )
-                ]
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, 'login');
+                        },
+                        child: const Text('Cancelar'),
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            )
+            ),
           ),
-        )
+        ),
+      ),
     );
   }
 }

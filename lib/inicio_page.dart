@@ -9,10 +9,39 @@ class InicioPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: Text('Inicio'),
+        backgroundColor: Colors.deepPurple,
       ),
-      body: Center(
-        child: Text('Bienvenido, $email'),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.deepPurple, Colors.purpleAccent],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 50,
+                backgroundImage: NetworkImage(
+                    'https://media.tenor.com/olr0tUuWI7gAAAAi/cuh-cat.gif'),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Bienvenido, $email',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 20),
+            ],
+          ),
+        ),
       ),
     );
   }
