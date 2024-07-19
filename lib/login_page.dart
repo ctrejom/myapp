@@ -35,7 +35,7 @@ class LoginPage extends StatelessWidget {
                   final usuario = valor.toUpperCase();
                   if ((usuario != 'CTREJOM@UNAH.HN') &&
                       (usuario != 'WAI.TSE@UNAH.HN')) {
-                    return 'Contraseña o Usuario incorrecto';
+                    return 'Usuario incorrecto';
                   }
                   return null;
                 },
@@ -49,10 +49,10 @@ class LoginPage extends StatelessWidget {
                   }
                   final usuario = nombreController.text.toUpperCase();
                   if (usuario == 'CTREJOM@UNAH.HN' && valor != '20212000569') {
-                    return 'Contraseña o Usuario incorrecto';
+                    return 'Contraseña Incorrecta';
                   } else if (usuario == 'WAI.TSE@UNAH.HN' &&
                       valor != '20212000972') {
-                    return 'Contraseña o Usuario incorrecto';
+                    return 'Contraseña Incorrecta';
                   }
                   return null;
                 },
