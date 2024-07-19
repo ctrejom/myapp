@@ -28,14 +28,14 @@ class LoginPage extends StatelessWidget {
               CustomFormLogin(
                 controller: nombreController,
                 label: 'Nombre de Usuario',
-                validator: (valor) {
+                validator: (valor) { //Validacion del nombre
                   if ((valor!.isEmpty)) {
                     return 'El nombre es obligatorio';
                   }
                   final usuario = valor.toUpperCase();
                   if ((usuario != 'CTREJOM@UNAH.HN') &&
                       (usuario != 'WAI.TSE@UNAH.HN')) {
-                    return 'Usuario incorrecto';
+                    return 'El Usuario que ingreso es incorrecto';
                   }
                   return null;
                 },
@@ -43,16 +43,16 @@ class LoginPage extends StatelessWidget {
               CustomFormLogin(
                 controller: contraseniaController,
                 label: 'Contraseña',
-                validator: (valor) {
+                validator: (valor) { //Validacion de la contraseña
                   if ((valor!.isEmpty)) {
                     return 'La Contraseña es obligatoria';
                   }
                   final usuario = nombreController.text.toUpperCase();
                   if (usuario == 'CTREJOM@UNAH.HN' && valor != '20212000569') {
-                    return 'Contraseña Incorrecta';
+                    return 'Contraseña incorrecta para el usuario';
                   } else if (usuario == 'WAI.TSE@UNAH.HN' &&
                       valor != '20212000972') {
-                    return 'Contraseña Incorrecta';
+                    return 'Contraseña incorrecta para el usuario';
                   }
                   return null;
                 },
@@ -64,7 +64,13 @@ class LoginPage extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         if (formkey.currentState!.validate()) {
-                          return null;
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  InicioPage(email: nombreController.text),
+                            ),
+                          );
                         }
                       },
                       child: const Text('Iniciar sesión'),
@@ -82,9 +88,7 @@ class LoginPage extends StatelessWidget {
                             Colors.black87, // Color del botón en modo oscuro
                       ),
                     ),
-                  ]
-                )
-              )
+                  ]))
             ],
           ),
         ),
